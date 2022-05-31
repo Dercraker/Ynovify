@@ -6,23 +6,19 @@ void main() {
   runApp(const MyApp());
 }
 
-const Color principal = Color.fromARGB(255, 55, 0, 100);
-const Color secondary = Colors.grey;
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ynovify',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        canvasColor: principal,
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 43, 43, 43),
       ),
-      home: const MyHomePage(title: 'YNOVIFY'),
+      home: const MyHomePage(title: 'Ynovify'),
     );
   }
 }
@@ -39,13 +35,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool selected = true;
   int selectMusic = 0;
-  String songduration = "";
 
   List<Music> myMusicList = [
-    Music('Never Gonna Give You Up', 'Rick Astley', 'assets/img/rickroll.jpg',
-        'http://tinyurl.com/s63ve48'),
-    Music('Enemy', 'Imagine Dragons', 'assets/img/Arcane-photo.jpeg',
-        'https://music.florian-berthier.com/Enemy%20-%20Imagine%20Dragons.mp3'),
+    Music(
+      'Never Gonna Give You Up',
+      'Rick Astley',
+      'assets/img/rickroll.jpg',
+      'http://tinyurl.com/s63ve48'),
+    Music(
+      'Enemy',
+      'Imagine Dragons',
+      'assets/img/Arcane-photo.jpeg',
+      'https://music.florian-berthier.com/Enemy%20-%20Imagine%20Dragons.mp3'),
   ];
 
   final _player = AudioPlayer();
@@ -76,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
             AudioSource.uri(Uri.parse(myMusicList[selectMusic].urlSong)))
         .then((value) => {
               setState(() {
-                songduration = "${value!.inMinutes}:${value.inSeconds % 60}";
               })
             });
   }
@@ -85,8 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title:
-              Center(child: Text(widget.title, textAlign: TextAlign.center))),
+        title: Center(child: Text(widget.title)),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -95,17 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(50),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: secondary, width: 1),
+                    border: Border.all(color: Colors.white, width: 1),
                   ),
                   child: Image.asset(myMusicList[selectMusic].imagePath),
-                )),
+                )
+                // child: Image.asset(myMusicList[selectMusic].imagePath),
+                ),
             Text(
               myMusicList[selectMusic].title,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: secondary,
+                color: Color.fromARGB(255, 255, 0, 255),
               ),
             ),
             Text(
@@ -113,18 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 20,
-                color: secondary,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                songduration,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: secondary,
-                ),
+                color: Color.fromARGB(255, 0, 17, 255),
               ),
             ),
             Padding(
@@ -132,18 +123,18 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      color: principal,
-                      icon: Icon(Icons.fast_rewind),
+                      color: Colors.deepPurple,
+                      icon: const Icon(Icons.fast_rewind),
                       onPressed: _decrementMusicCounter,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      color: principal,
+                      color: Colors.deepPurple,
                       icon: Icon(selected ? Icons.play_arrow : Icons.pause),
                       onPressed: () {
                         setState(() {
@@ -153,11 +144,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                      color: principal,
-                      icon: Icon(Icons.fast_forward),
+                      color: Colors.deepPurple,
+                      icon: const Icon(Icons.fast_forward),
                       onPressed: _incrementMusicCounter,
                     ),
                   )
